@@ -1,0 +1,108 @@
+/**
+ * Desktop
+ */
+ 
+/* Anzeixer */
+body:after {
+  content: 'desktop';
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  background: #fc0;
+  padding: 0.4em;
+}
+body.dev:after {
+  display: block;
+}
+
+/* Your styles */
+body {
+  background: #eee;
+  font-size: 0.9375em;
+}
+.container {
+  background: #fff;
+  margin: 0 auto;
+  width: 63.2em;
+  padding: 1.6em;
+}
+#content {
+  min-height: 50em;
+}
+footer,
+footer .container {
+  background: #ddd;
+  color: #666;
+}
+footer p {
+  font-size: 0.8em;
+}
+footer p img {
+  vertical-align: top;
+}
+footer a {
+  color: #333;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+
+/**
+ * Tablet
+ */
+@media screen and (min-width: 768px) and (max-width: 999px) {
+  
+  /* Anzeixer */
+  body:after {
+    content: 'tablet';
+    background: #f90;
+  }
+  
+  /* Your styles */
+  .container {
+    width: 47em;
+  }
+  
+}
+
+
+/**
+ * Phone landscape
+ */
+@media screen and (min-width: 511px) and (max-width: 767px) {
+  
+  /* Anzeixer */
+  body:after {
+    content: 'phone-landscape';
+    background: #cf0;
+  }
+  
+  /* Your styles */
+  .container {
+    width: 30.8em;
+  }
+  
+}
+
+
+/**
+ * Phone portrait
+ */
+@media screen and (max-width: 510px) {
+  
+  /* Anzeixer */
+  body:after {
+    content: 'phone-portrait';
+    background: #9f0;
+  }
+  
+  /* Your styles */
+  .container {
+    width: auto;
+    padding: 1.6em 0.8em;
+  }
+  
+}
