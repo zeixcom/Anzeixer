@@ -1,0 +1,23 @@
+{
+  "name": "Anzeixer",
+  "version": "1.0.0",
+  "homepage": "http://zeix.com/anzeixer/",
+  "authors": [
+    "Esther Brunner <esther.brunner@zeix.com>"
+  ],
+  "description": "Toolkit to Streamline View Definitions for Responsive Web Design",
+  "main": "dist/anzeixer.js",
+  "keywords": [
+    "css",
+    "javascript",
+    "responsive"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
