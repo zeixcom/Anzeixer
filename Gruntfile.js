@@ -4,12 +4,6 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-		concat: {
-			main: {
-				src: ['src/anzeixer.js', 'src/script.js'],
-				dest: 'dist/anzeixer.js'
-			}
-		},
 
 		uglify: {
 			options: {
@@ -19,7 +13,7 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				files: {
-					'dist/anzeixer.min.js': ['<%= concat.main.dest %>']
+					'dist/anzeixer.min.js': ['src/anzeixer.js']
 				}
 			}
 		},
@@ -29,19 +23,22 @@ module.exports = function(grunt) {
 		},
 
 		copy: {
-			main: {
-				src: 'src/*',
-				dest: 'demo/js/',
+			demo: {
+				src: 'src/anzeixer.js',
+				dest: 'demo/js/anzeixer.js',
 			},
+			dist: {
+				src: 'src/anzeixer.js',
+				dest: 'dist/anzeixer.js',
+			}
 		},
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 
-	grunt.registerTask('default', ['jshint','concat', 'uglify', 'copy']);
-	grunt.registerTask('build', ['jshint','concat', 'uglify', 'copy']);
+	grunt.registerTask('default', ['jshint', 'uglify', 'copy']);
+	grunt.registerTask('build', ['jshint', 'uglify', 'copy']);
 
 };
