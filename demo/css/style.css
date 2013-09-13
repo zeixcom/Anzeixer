@@ -19,7 +19,7 @@ body.dev:after {
 
 /* Your styles */
 body {
-  background: #eee;
+  background: #f3e7d3;
   font-size: 0.9375em;
 }
 .container {
@@ -31,9 +31,16 @@ body {
 #content {
   min-height: 50em;
 }
+#content h2 {
+  margin-top: 2.4em;
+  font-size: 1.2em;
+}
+#log {
+  padding-left: 1.6em;
+}
 footer,
 footer .container {
-  background: #ddd;
+  background: #ddd1bb;
   color: #666;
 }
 footer p {
@@ -62,8 +69,15 @@ footer a:hover {
   }
   
   /* Your styles */
+  body {
+    background: #e2c9bd;
+  }
   .container {
     width: 47em;
+  }
+  footer,
+  footer .container {
+    background: #c6ac9e;
   }
   
 }
@@ -81,8 +95,15 @@ footer a:hover {
   }
   
   /* Your styles */
+  body {
+    background: #f2fce1;
+  }
   .container {
     width: 30.8em;
+  }
+  footer,
+  footer .container {
+    background: #e6f1d3;
   }
   
 }
@@ -100,9 +121,16 @@ footer a:hover {
   }
   
   /* Your styles */
+  body {
+    background: #e7fade;
+  }
   .container {
     width: auto;
     padding: 1.6em 0.8em;
+  }
+  footer,
+  footer .container {
+    background: #d6ebcc;
   }
   
 }
