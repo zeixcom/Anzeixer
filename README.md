@@ -1,4 +1,4 @@
-Anzeixer
+Anzeixer <img src="badge@2x.png" width="130" height="30">
 ========
 
 Toolkit to Streamline View Definitions for Responsive Web Design
