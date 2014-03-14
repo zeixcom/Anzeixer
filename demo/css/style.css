@@ -1,20 +1,26 @@
 /**
  * Desktop
  */
- 
+
 /* Anzeixer */
 body:after {
   content: 'desktop';
-  display: none;
   position: fixed;
-  bottom: 0;
+  bottom: -50px;
   left: 0;
   z-index: 1000;
   background: #fc0;
   padding: 0.4em;
+  /* display: none; */
+  /* display none currently doesn't work in Chrome 33
+     http://code.google.com/p/chromium/issues/detail?id=341120
+     the following is a (hopefully temporary) workaround
+   */
+  visibility: hidden;
 }
 body.dev:after {
-  display: block;
+  visibility: visible;
+  bottom: 0;
 }
 
 /* Your styles */
@@ -61,13 +67,13 @@ footer a:hover {
  * Tablet
  */
 @media screen and (min-width: 768px) and (max-width: 999px) {
-  
+
   /* Anzeixer */
   body:after {
     content: 'tablet';
     background: #f90;
   }
-  
+
   /* Your styles */
   body {
     background: #e2c9bd;
@@ -79,7 +85,7 @@ footer a:hover {
   footer .container {
     background: #c6ac9e;
   }
-  
+
 }
 
 
@@ -87,13 +93,13 @@ footer a:hover {
  * Phone landscape
  */
 @media screen and (min-width: 511px) and (max-width: 767px) {
-  
+
   /* Anzeixer */
   body:after {
     content: 'phone-landscape';
     background: #cf0;
   }
-  
+
   /* Your styles */
   body {
     background: #f2fce1;
@@ -105,7 +111,7 @@ footer a:hover {
   footer .container {
     background: #e6f1d3;
   }
-  
+
 }
 
 
@@ -113,13 +119,13 @@ footer a:hover {
  * Phone portrait
  */
 @media screen and (max-width: 510px) {
-  
+
   /* Anzeixer */
   body:after {
     content: 'phone-portrait';
     background: #9f0;
   }
-  
+
   /* Your styles */
   body {
     background: #e7fade;
@@ -132,5 +138,5 @@ footer a:hover {
   footer .container {
     background: #d6ebcc;
   }
-  
+
 }
