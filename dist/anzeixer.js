@@ -3,7 +3,9 @@
  * @see https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent?redirectlocale=en-US&redirectslug=Web%2FAPI%2FEvent%2FCustomEvent#Browser_compatibility
  */
 try {
-  (function(){
+  (function() {
+    'use strict';
+    
     function CustomEvent(event, params){
       params = params || {bubbles: false, cancelable: false, detail: undefined};
       var evt = document.createEvent('CustomEvent');
@@ -37,21 +39,23 @@ try {
 
 /**
  * Anzeixer
- * (c) 2013 Zeix AG
+ * (c) 2013 - 2014 Zeix AG
  * Anzeixer.js may be freely distributed under the MIT license.
  */
-var Anzeixer = (function(){
+var Anzeixer = (function() {
+  'use strict';
+  
   var view;
 
   // get the current view and trigger viewchange event if it changed since last query
-  var getView = function(){
+  var getView = function() {
     var oldView = view;
     try {
       view = window.getComputedStyle(document.querySelector('body'), ':after').getPropertyValue('content').replace(/["']/g, '');
     } catch (error){
       view = 'desktop';
     }
-    if (oldView !== view && window.hasCustomEvents){
+    if (oldView !== view && window.hasCustomEvents) {
       var event = new window.CustomEvent('viewchange', {'detail': {
         'originalView': oldView,
         'currentView': view
@@ -62,7 +66,7 @@ var Anzeixer = (function(){
   };
 
   // split view names and return only the main part
-  var mainView = function(){
+  var mainView = function() {
     var parts = getView().split('-');
     return parts[0];
   };
@@ -70,14 +74,19 @@ var Anzeixer = (function(){
   // listen to document ready and resize events
   window.addEventListener('DOMContentLoaded', getView, false);
   window.addEventListener('resize', getView, false);
+  
+  // add the detail property to jQuery event object
+  if (typeof jQuery !== 'undefined') {
+    jQuery.event.props.push('detail');
+  }
 
   return {
     getView: getView,
 
     // convenience functions for common view names
-    isDesktop: function(){ return (mainView() === 'desktop'); },
-    isTablet: function(){ return (mainView() === 'tablet'); },
-    isPhone: function(){ return (mainView() === 'phone'); }
+    isDesktop: function() { return (mainView() === 'desktop'); },
+    isTablet: function() { return (mainView() === 'tablet'); },
+    isPhone: function() { return (mainView() === 'phone'); }
   };
 
 }());
