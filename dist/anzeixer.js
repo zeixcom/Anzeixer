@@ -5,7 +5,7 @@
 try {
   (function() {
     'use strict';
-    
+
     function CustomEvent(event, params){
       params = params || {bubbles: false, cancelable: false, detail: undefined};
       var evt = document.createEvent('CustomEvent');
@@ -39,42 +39,46 @@ try {
 
 /**
  * Anzeixer
- * (c) 2013 - 2014 Zeix AG
+ * (c) 2013 - 2015 Zeix AG
  * Anzeixer.js may be freely distributed under the MIT license.
  */
 var Anzeixer = (function() {
   'use strict';
-  
-  var view;
+
+  var view,
+      viewIndex,
+      viewArray = ['xs', 's', 'm', 'l', 'xl'];
 
   // get the current view and trigger viewchange event if it changed since last query
   var getView = function() {
-    var oldView = view;
+    var oldView = view,
+        oldViewIndex = viewIndex;
     try {
       view = window.getComputedStyle(document.querySelector('body'), ':after').getPropertyValue('content').replace(/["']/g, '');
+      viewIndex = viewArray.indexOf(view);
     } catch (error){
-      view = 'desktop';
+      view = 'l';
+      viewIndex = 3;
     }
     if (oldView !== view && window.hasCustomEvents) {
       var event = new window.CustomEvent('viewchange', {'detail': {
-        'originalView': oldView,
-        'currentView': view
+        'originalView': viewArray[oldViewIndex],
+        'currentView': viewArray[viewIndex]
       }});
       document.dispatchEvent(event);
     }
-    return view;
+    return viewIndex;
   };
-
-  // split view names and return only the main part
-  var mainView = function() {
-    var parts = getView().split('-');
-    return parts[0];
-  };
+  
+  // convenience functions for common view names
+  var isSmall = function() { return (viewIndex < 2); };
+  var isMedium = function() { return (viewIndex === 2); };
+  var isLarge = function() { return (viewIndex > 2); };
 
   // listen to document ready and resize events
   window.addEventListener('DOMContentLoaded', getView, false);
   window.addEventListener('resize', getView, false);
-  
+
   // add the detail property to jQuery event object
   if (typeof jQuery !== 'undefined') {
     jQuery.event.props.push('detail');
@@ -82,11 +86,14 @@ var Anzeixer = (function() {
 
   return {
     getView: getView,
-
-    // convenience functions for common view names
-    isDesktop: function() { return (mainView() === 'desktop'); },
-    isTablet: function() { return (mainView() === 'tablet'); },
-    isPhone: function() { return (mainView() === 'phone'); }
+    isLarge: isLarge,
+    isMedium: isMedium,
+    isSmall: isSmall,
+    
+    // deprecated: desktop, tablet, phone view names
+    isDesktop: isLarge,
+    isTablet: isMedium,
+    isPhone: isSmall
   };
 
 }());

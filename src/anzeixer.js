@@ -39,7 +39,7 @@ try {
 
 /**
  * Anzeixer
- * (c) 2013 - 2014 Zeix AG
+ * (c) 2013 - 2015 Zeix AG
  * Anzeixer.js may be freely distributed under the MIT license.
  */
 var Anzeixer = (function() {
@@ -47,7 +47,7 @@ var Anzeixer = (function() {
 
   var view,
       viewIndex,
-      viewArray = ['desktop', 'tablet', 'phone-landscape', 'phone-portrait'];
+      viewArray = ['xs', 's', 'm', 'l', 'xl'];
 
   // get the current view and trigger viewchange event if it changed since last query
   var getView = function() {
@@ -55,10 +55,10 @@ var Anzeixer = (function() {
         oldViewIndex = viewIndex;
     try {
       view = window.getComputedStyle(document.querySelector('body'), ':after').getPropertyValue('content').replace(/["']/g, '');
-      viewIndex = parseInt(window.getComputedStyle(document.querySelector('body'), ':before').getPropertyValue('content').replace(/["']/g, ''));
+      viewIndex = viewArray.indexOf(view);
     } catch (error){
-      view = 'desktop';
-      viewIndex = 0;
+      view = 'l';
+      viewIndex = 3;
     }
     if (oldView !== view && window.hasCustomEvents) {
       var event = new window.CustomEvent('viewchange', {'detail': {
@@ -69,12 +69,11 @@ var Anzeixer = (function() {
     }
     return viewIndex;
   };
-
-  // split view names and return only the main part
-  var mainView = function() {
-    var parts = getView().split('-');
-    return parts[0];
-  };
+  
+  // convenience functions for common view names
+  var isSmall = function() { return (viewIndex < 2); };
+  var isMedium = function() { return (viewIndex === 2); };
+  var isLarge = function() { return (viewIndex > 2); };
 
   // listen to document ready and resize events
   window.addEventListener('DOMContentLoaded', getView, false);
@@ -87,11 +86,14 @@ var Anzeixer = (function() {
 
   return {
     getView: getView,
-
-    // convenience functions for common view names
-    isDesktop: function() { return (viewIndex === 0); },
-    isTablet: function() { return (viewIndex === 1); },
-    isPhone: function() { return (viewIndex >= 2); }
+    isLarge: isLarge,
+    isMedium: isMedium,
+    isSmall: isSmall,
+    
+    // deprecated: desktop, tablet, phone view names -- will be removed in Anzeixer 2.0
+    isDesktop: isLarge,
+    isTablet: isMedium,
+    isPhone: isSmall
   };
 
 }());

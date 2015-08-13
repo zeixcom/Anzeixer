@@ -1,0 +1,93 @@
+/**
+ * Anzeixer styles
+ */
+
+/* All screen sizes */
+@media screen {
+  
+  body:after {
+    content: 'l'; /* assume 1024px width for browsers not supporting media queries */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    background: #eee;
+    padding: 0.4em;
+    display: none;
+    /* display none currently doesn't work in Chrome 33
+       http://code.google.com/p/chromium/issues/detail?id=341120
+       the following is a (hopefully temporary) workaround
+    visibility: hidden;
+    bottom: -50px;
+    */
+  }
+  
+  body.dev:after {
+    /*
+    visibility: visible;
+    bottom: 0;
+    */
+    display: block;
+  }
+
+}
+
+/**
+ * Extra small
+ */
+@media screen and (max-width: 510px) {
+
+  body:after {
+    content: 'xs';
+    background: #aad2ae;
+  }
+
+}
+
+/**
+ * Small
+ */
+@media screen and (min-width: 511px) and (max-width: 767px) {
+
+  body:after {
+    content: 's';
+    background: #cbdd9e;
+  }
+
+}
+
+/**
+ * Medium
+ */
+@media screen and (min-width: 768px) and (max-width: 999px) {
+
+  body:after {
+    content: 'm';
+    background: #ffe6a0;
+  }
+
+}
+
+/**
+ * Large
+ */
+@media screen and (min-width: 1000px) and (max-width: 1255px) {
+  
+  body:after {
+    content: 'l';
+    background: #ffc499;
+  }
+  
+}
+
+/**
+ * Extra large
+ */
+@media screen and (min-width: 1256px) {
+  
+  body:after {
+    content: 'xl';
+    background: #ffa49d;
+  }
+  
+}
