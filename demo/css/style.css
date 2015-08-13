@@ -140,3 +140,15 @@ footer a:hover {
   }
 
 }
+
+/**
+ * Print
+ */
+@media print {
+  
+  /* Anzeixer */
+  body:after {
+    display: none; /* important, because otherwise Firefox won't print anything */
+  }
+  
+}
