@@ -5,7 +5,7 @@
 try {
   (function() {
     'use strict';
-    
+
     function CustomEvent(event, params){
       params = params || {bubbles: false, cancelable: false, detail: undefined};
       var evt = document.createEvent('CustomEvent');
@@ -44,25 +44,30 @@ try {
  */
 var Anzeixer = (function() {
   'use strict';
-  
-  var view;
+
+  var view,
+      viewIndex,
+      viewArray = ['desktop', 'tablet', 'phone-landscape', 'phone-portrait'];
 
   // get the current view and trigger viewchange event if it changed since last query
   var getView = function() {
-    var oldView = view;
+    var oldView = view,
+        oldViewIndex = viewIndex;
     try {
       view = window.getComputedStyle(document.querySelector('body'), ':after').getPropertyValue('content').replace(/["']/g, '');
+      viewIndex = parseInt(window.getComputedStyle(document.querySelector('body'), ':before').getPropertyValue('content').replace(/["']/g, ''));
     } catch (error){
       view = 'desktop';
+      viewIndex = 0;
     }
     if (oldView !== view && window.hasCustomEvents) {
       var event = new window.CustomEvent('viewchange', {'detail': {
-        'originalView': oldView,
-        'currentView': view
+        'originalView': viewArray[oldViewIndex],
+        'currentView': viewArray[viewIndex]
       }});
       document.dispatchEvent(event);
     }
-    return view;
+    return viewIndex;
   };
 
   // split view names and return only the main part
@@ -74,7 +79,7 @@ var Anzeixer = (function() {
   // listen to document ready and resize events
   window.addEventListener('DOMContentLoaded', getView, false);
   window.addEventListener('resize', getView, false);
-  
+
   // add the detail property to jQuery event object
   if (typeof jQuery !== 'undefined') {
     jQuery.event.props.push('detail');
@@ -84,9 +89,9 @@ var Anzeixer = (function() {
     getView: getView,
 
     // convenience functions for common view names
-    isDesktop: function() { return (mainView() === 'desktop'); },
-    isTablet: function() { return (mainView() === 'tablet'); },
-    isPhone: function() { return (mainView() === 'phone'); }
+    isDesktop: function() { return (viewIndex === 0); },
+    isTablet: function() { return (viewIndex === 1); },
+    isPhone: function() { return (viewIndex >= 2); }
   };
 
 }());
