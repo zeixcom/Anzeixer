@@ -33,15 +33,37 @@
 }
 
 /**
+ * Rotate Anzeixer label for portrait orientation
+ */
+@media screen and (orientation: portrait) {
+  
+  body.dev:after {
+    -webkit-transform: rotate(-90deg) translateY(100%);
+    -webkit-transform-origin: bottom left;
+    transform: rotate(-90deg) translateY(100%);
+    transform-origin: bottom left;
+  }
+
+}
+
+/**
  * Extra small
  */
 @media screen and (max-width: 510px) {
-
+  
   body:after {
     content: 'xs';
     background: #aad2ae;
   }
+  
+}
 
+@media screen and (max-width: 510px) and (orientation: portrait) {
+  body:after { content: 'xs portrait'; }
+}
+
+@media screen and (max-width: 510px) and (orientation: landscape) {
+  body:after { content: 'xs landscape'; }
 }
 
 /**
@@ -56,6 +78,14 @@
 
 }
 
+@media screen and (min-width: 511px) and (max-width: 767px) and (orientation: portrait) {
+  body:after { content: 's portrait'; }
+}
+
+@media screen and (min-width: 511px) and (max-width: 767px) and (orientation: landscape) {
+  body:after { content: 's landscape'; }
+}
+
 /**
  * Medium
  */
@@ -66,6 +96,14 @@
     background: #ffe6a0;
   }
 
+}
+
+@media screen and (min-width: 768px) and (max-width: 999px) and (orientation: portrait) {
+  body:after { content: 'm portrait'; }
+}
+
+@media screen and (min-width: 768px) and (max-width: 999px) and (orientation: landscape) {
+  body:after { content: 'm landscape'; }
 }
 
 /**
@@ -80,6 +118,14 @@
   
 }
 
+@media screen and (min-width: 1000px) and (max-width: 1255px) and (orientation: portrait) {
+  body:after { content: 'l portrait'; }
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1255px) and (orientation: landscape) {
+  body:after { content: 'l landscape'; }
+}
+
 /**
  * Extra large
  */
@@ -90,4 +136,12 @@
     background: #ffa49d;
   }
   
+}
+
+@media screen and (min-width: 1256px) and (orientation: portrait) {
+  body:after { content: 'xl portrait'; }
+}
+
+@media screen and (min-width: 1256px) and (orientation: landscape) {
+  body:after { content: 'xl landscape'; }
 }

@@ -14,20 +14,27 @@ How to Use Anzeixer?
 --------------------
 
 ### Define Views in CSS with @media Rules
-Define views that use media queries to apply CSS rules at specific breakpoints and give the views descriptive names. In addition to distinct views for smartphones, tablets and computers, you can also create views for portrait and landscape orientations and for various pixel densities.
+Define views that use media queries to apply CSS rules at specific breakpoints and give the views descriptive names. In addition to distinct views for different device widths, you can also create views for portrait and landscape orientations and for various pixel densities.
 
 ```css
 /**
- * Tablet
+ * Medium
  */
 @media screen and (min-width: 768px) and (max-width: 999px) {
 
-  /* Anzeixer */
   body:after {
-    content: 'tablet';
-    background: #f90;
+    content: 'm';
+    background: #ffe6a0;
   }
 
+}
+
+@media screen and (min-width: 768px) and (max-width: 999px) and (orientation: portrait) {
+  body:after { content: 'm portrait'; }
+}
+
+@media screen and (min-width: 768px) and (max-width: 999px) and (orientation: landscape) {
+  body:after { content: 'm landscape'; }
 }
 ```
 
@@ -42,10 +49,17 @@ During development, you need to know that the correct CSS rules are being applie
 You probably need for certain user interface behavior to change depending on the view. For example, you might replace tabs with an accordion on very narrow screens. By using JavaScript to query the current view from CSS instead of defining the threshold values a second time in JavaScript, you reduce complexity and the likelihood of errors.
 
 ```js
-Anzeixer.getView();   // returns string
-Anzeixer.isDesktop(); // returns boolean
-Anzeixer.isTablet();  // returns boolean
-Anzeixer.isPhone();   // returns boolean
+Anzeixer.getView();      // returns string -- CSS content property of body:after
+Anzeixer.getSizeIndex(); // returns integer -- index of current view size
+
+Anzeixer.isXSmall();     // returns boolean -- target smallest devices only (xs)
+Anzeixer.isSmall();      // returns boolean -- target all small devices (xs and s)
+Anzeixer.isMedium();     // returns boolean -- target medium devices only (m)
+Anzeixer.isLarge();      // returns boolean -- target all large devices (l and xl)
+Anzeixer.isXLarge();     // returns boolean -- target largest devices only (xl)
+
+Anzeixer.isPortrait();   // returns boolean -- target portrait orientation
+Anzeixer.isLandscape();  // returns boolean -- target landscape orientation
 ```
 
 ### Improve Performance with Unified View Change Events

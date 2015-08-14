@@ -39,41 +39,66 @@ try {
 
 /**
  * Anzeixer
- * (c) 2013 - 2015 Zeix AG
- * Anzeixer.js may be freely distributed under the MIT license.
+ *
+ * @author Esther Brunner <esther.brunner@zeix.com>
+ * @copyright 2013 – 2015 Zeix AG
+ * @license Anzeixer.js may be freely distributed under MIT license
  */
 var Anzeixer = (function() {
   'use strict';
 
   var view,
-      viewIndex,
-      viewArray = ['xs', 's', 'm', 'l', 'xl'];
+      sizes = ['xs', 's', 'm', 'l', 'xl'];
 
-  // get the current view and trigger viewchange event if it changed since last query
+  /**
+   * Get the current view and trigger viewchange event if it changed since last query
+   *
+   * @return {string} string from body:after CSS content property
+   */
   var getView = function() {
-    var oldView = view,
-        oldViewIndex = viewIndex;
+    var oldView = view;
     try {
       view = window.getComputedStyle(document.querySelector('body'), ':after').getPropertyValue('content').replace(/["']/g, '');
-      viewIndex = viewArray.indexOf(view);
     } catch (error){
-      view = 'l';
-      viewIndex = 3;
+      view = 'l landscape'; // assume 1024px wide landscape screen if computed style query fails
     }
     if (oldView !== view && window.hasCustomEvents) {
       var event = new window.CustomEvent('viewchange', {'detail': {
-        'originalView': viewArray[oldViewIndex],
-        'currentView': viewArray[viewIndex]
+        'originalView': oldView,
+        'currentView': view
       }});
       document.dispatchEvent(event);
     }
-    return viewIndex;
+    return view;
   };
   
-  // convenience functions for common view names
-  var isSmall = function() { return (viewIndex < 2); };
-  var isMedium = function() { return (viewIndex === 2); };
-  var isLarge = function() { return (viewIndex > 2); };
+  /**
+   * Get index of the current view size
+   *
+   * @return {integer} zero-based index of sizes array
+   */
+  var getSizeIndex = function() {
+    return sizes.indexOf(view.split(' ')[0]);
+  };
+  
+  /**
+   * Convenience functions for view sizes
+   *
+   * @return {boolean} whether a size matches the current view
+   */
+  var isXSmall = function() { return (getSizeIndex() === 0); }; // target smallest devices only
+  var isSmall = function() { return (getSizeIndex() < 2); };    // target all small devices
+  var isMedium = function() { return (getSizeIndex() === 2); }; // target medium devices only
+  var isLarge = function() { return (getSizeIndex() > 2); };    // target all large devices
+  var isXLarge = function() { return (getSizeIndex() === 4); }; // target largest devices only
+  
+  /**
+   * Convenience functions for view orientations
+   *
+   * @return {boolean} whether a orientation matches the current view
+   */
+  var isPortrait = function() { return view.split(' ')[1] === 'portrait'; };
+  var isLandscape = function() { return view.split(' ')[1] === 'landscape'; };
 
   // listen to document ready and resize events
   window.addEventListener('DOMContentLoaded', getView, false);
@@ -86,11 +111,16 @@ var Anzeixer = (function() {
 
   return {
     getView: getView,
-    isLarge: isLarge,
-    isMedium: isMedium,
+    getSizeIndex: getSizeIndex,
+    isXSmall: isXSmall,
     isSmall: isSmall,
+    isMedium: isMedium,
+    isLarge: isLarge,
+    isXLarge: isXLarge,
+    isPortrait: isPortrait,
+    isLandscape: isLandscape,
     
-    // deprecated: desktop, tablet, phone view names
+    // @deprecated desktop, tablet, phone view names -- will be removed in Anzeixer 3.0
     isDesktop: isLarge,
     isTablet: isMedium,
     isPhone: isSmall
