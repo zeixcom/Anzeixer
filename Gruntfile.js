@@ -32,13 +32,26 @@ module.exports = function(grunt) {
         dest: 'dist/anzeixer.js',
       }
     },
+    
+    sass: {
+      options: {
+        sourceMap: true,
+        outputStyle: 'compressed'
+      },
+      dist: {
+        files: {
+          'demo/css/styles.css': 'demo/styles/styles.scss'
+        }
+      }
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-sass');
 
-  grunt.registerTask('default', ['jshint', 'uglify', 'copy']);
-  grunt.registerTask('build', ['jshint', 'uglify', 'copy']);
+  grunt.registerTask('default', ['sass', 'jshint', 'uglify', 'copy']);
+  grunt.registerTask('build', ['sass', 'jshint', 'uglify', 'copy']);
 
 };

@@ -1,0 +1,10 @@
+// Define breakpoint sizes
+$view-s-min: 512px;
+$view-m-min: 768px;
+$view-l-min: 1000px;
+$view-xl-min: 1256px;
+
+$view-xs-max: ($view-s-min - 1px);
+$view-s-max: ($view-m-min - 1px);
+$view-m-max: ($view-l-min - 1px);
+$view-l-max: ($view-xl-min - 1px);

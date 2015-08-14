@@ -1,6 +1,4 @@
-/**
- * Anzeixer styles
- */
+/*! Anzeixer v2.0 | MIT License | github.com/zeixcom/Anzeixer */
 
 /* All screen sizes */
 @media screen {
@@ -33,7 +31,7 @@
 }
 
 /**
- * Rotate Anzeixer label for portrait orientation
+ * Rotate Anzeixer label in portrait orientation
  */
 @media screen and (orientation: portrait) {
   
@@ -49,7 +47,7 @@
 /**
  * Extra small
  */
-@media screen and (max-width: 510px) {
+@media screen and (max-width: $view-xs-max) {
   
   body:after {
     content: 'xs';
@@ -58,18 +56,18 @@
   
 }
 
-@media screen and (max-width: 510px) and (orientation: portrait) {
+@media screen and (max-width: $view-xs-max) and (orientation: portrait) {
   body:after { content: 'xs portrait'; }
 }
 
-@media screen and (max-width: 510px) and (orientation: landscape) {
+@media screen and (max-width: $view-xs-max) and (orientation: landscape) {
   body:after { content: 'xs landscape'; }
 }
 
 /**
  * Small
  */
-@media screen and (min-width: 511px) and (max-width: 767px) {
+@media screen and (min-width: $view-s-min) and (max-width: $view-s-max) {
 
   body:after {
     content: 's';
@@ -78,18 +76,18 @@
 
 }
 
-@media screen and (min-width: 511px) and (max-width: 767px) and (orientation: portrait) {
+@media screen and (min-width: $view-s-min) and (max-width: $view-s-max) and (orientation: portrait) {
   body:after { content: 's portrait'; }
 }
 
-@media screen and (min-width: 511px) and (max-width: 767px) and (orientation: landscape) {
+@media screen and (min-width: $view-s-min) and (max-width: $view-s-max) and (orientation: landscape) {
   body:after { content: 's landscape'; }
 }
 
 /**
  * Medium
  */
-@media screen and (min-width: 768px) and (max-width: 999px) {
+@media screen and (min-width: $view-m-min) and (max-width: $view-m-max) {
 
   body:after {
     content: 'm';
@@ -98,18 +96,18 @@
 
 }
 
-@media screen and (min-width: 768px) and (max-width: 999px) and (orientation: portrait) {
+@media screen and (min-width: $view-m-min) and (max-width: $view-m-max) and (orientation: portrait) {
   body:after { content: 'm portrait'; }
 }
 
-@media screen and (min-width: 768px) and (max-width: 999px) and (orientation: landscape) {
+@media screen and (min-width: $view-m-min) and (max-width: $view-m-max) and (orientation: landscape) {
   body:after { content: 'm landscape'; }
 }
 
 /**
  * Large
  */
-@media screen and (min-width: 1000px) and (max-width: 1255px) {
+@media screen and (min-width: $view-l-min) and (max-width: $view-l-max) {
   
   body:after {
     content: 'l';
@@ -118,18 +116,18 @@
   
 }
 
-@media screen and (min-width: 1000px) and (max-width: 1255px) and (orientation: portrait) {
+@media screen and (min-width: $view-l-min) and (max-width: $view-l-max) and (orientation: portrait) {
   body:after { content: 'l portrait'; }
 }
 
-@media screen and (min-width: 1000px) and (max-width: 1255px) and (orientation: landscape) {
+@media screen and (min-width: $view-l-min) and (max-width: $view-l-max) and (orientation: landscape) {
   body:after { content: 'l landscape'; }
 }
 
 /**
  * Extra large
  */
-@media screen and (min-width: 1256px) {
+@media screen and (min-width: $view-xl-min) {
   
   body:after {
     content: 'xl';
@@ -138,10 +136,10 @@
   
 }
 
-@media screen and (min-width: 1256px) and (orientation: portrait) {
+@media screen and (min-width: $view-xl-min) and (orientation: portrait) {
   body:after { content: 'xl portrait'; }
 }
 
-@media screen and (min-width: 1256px) and (orientation: landscape) {
+@media screen and (min-width: $view-xl-min) and (orientation: landscape) {
   body:after { content: 'xl landscape'; }
 }
