@@ -47,31 +47,30 @@ try {
 var Anzeixer = (function() {
   'use strict';
 
-  var view = currentView(),
-      sizes = ['xs', 's', 'm', 'l', 'xl'];
-
   /**
    * Get the current view
    * @return {string} string from body:after CSS content property
    */
-  function currentView() {
+  var getView = function() {
     try {
-      var currentView = window.getComputedStyle(document.querySelector('body'), ':after').getPropertyValue('content').replace(/["']/g, '');
-      return currentView;
+      return window.getComputedStyle(document.querySelector('body'), ':after').getPropertyValue('content').replace(/["']/g, '');
     } catch(exception) {
       console.error(exception);
       return 'l landscape'; // assume 1024px wide landscape screen if computed style query fails
     }
-  }
+  };
+
+  var view = getView(),
+      sizes = ['xs', 's', 'm', 'l', 'xl'];
 
   /**
    * Get the current view and trigger viewchange event if it changed since last query
    *
    * @return {string} string from body:after CSS content property
    */
-  function getView() {
+  function triggerViewChange() {
     var oldView = view;
-    view = currentView();
+    view = getView();
 
     if (oldView !== view && window.hasCustomEvents) {
       var event = new window.CustomEvent('viewchange', {'detail': {
@@ -113,8 +112,8 @@ var Anzeixer = (function() {
   var isLandscape = function() { return view.split(' ')[1] === 'landscape'; };
 
   // listen to document ready and resize events
-  window.addEventListener('DOMContentLoaded', getView, false);
-  window.addEventListener('resize', getView, false);
+  window.addEventListener('DOMContentLoaded', triggerViewChange, false);
+  window.addEventListener('resize', triggerViewChange, false);
 
   // add the detail property to jQuery event object
   if (typeof jQuery !== 'undefined') {
