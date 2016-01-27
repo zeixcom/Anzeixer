@@ -1,10 +1,11 @@
 {
   "name": "Anzeixer",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "homepage": "http://www.zeix.com/anzeixer/",
   "authors": [
     "Esther Brunner <esther.brunner@zeix.com>",
-    "Julien Silva <julien.silva@zeix.com>"
+    "Julien Silva <julien.silva@zeix.com>",
+    "Samuel Tschümperlin <samuel.tschuemperlin@zeix.com>"
   ],
   "description": "Toolkit to streamline view definitions for responsive web design",
   "main": "dist/anzeixer.js",
