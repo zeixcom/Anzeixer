@@ -47,21 +47,32 @@ try {
 var Anzeixer = (function() {
   'use strict';
 
-  var view,
+  var view = currentView(),
       sizes = ['xs', 's', 'm', 'l', 'xl'];
+
+  /**
+   * Get the current view
+   * @return {string} string from body:after CSS content property
+   */
+  function currentView() {
+    try {
+      var currentView = window.getComputedStyle(document.querySelector('body'), ':after').getPropertyValue('content').replace(/["']/g, '');
+      return currentView;
+    } catch(exception) {
+      console.error(exception);
+      return 'l landscape'; // assume 1024px wide landscape screen if computed style query fails
+    }
+  }
 
   /**
    * Get the current view and trigger viewchange event if it changed since last query
    *
    * @return {string} string from body:after CSS content property
    */
-  var getView = function() {
+  function getView() {
     var oldView = view;
-    try {
-      view = window.getComputedStyle(document.querySelector('body'), ':after').getPropertyValue('content').replace(/["']/g, '');
-    } catch (error){
-      view = 'l landscape'; // assume 1024px wide landscape screen if computed style query fails
-    }
+    view = currentView();
+
     if (oldView !== view && window.hasCustomEvents) {
       var event = new window.CustomEvent('viewchange', {'detail': {
         'originalView': oldView,
@@ -69,9 +80,10 @@ var Anzeixer = (function() {
       }});
       document.dispatchEvent(event);
     }
+
     return view;
-  };
-  
+  }
+
   /**
    * Get index of the current view size
    *
@@ -80,7 +92,7 @@ var Anzeixer = (function() {
   var getSizeIndex = function() {
     return sizes.indexOf(view.split(' ')[0]);
   };
-  
+
   /**
    * Convenience functions for view sizes
    *
@@ -91,7 +103,7 @@ var Anzeixer = (function() {
   var isMedium = function() { return (getSizeIndex() === 2); }; // target medium devices only
   var isLarge = function() { return (getSizeIndex() > 2); };    // target all large devices
   var isXLarge = function() { return (getSizeIndex() === 4); }; // target largest devices only
-  
+
   /**
    * Convenience functions for view orientations
    *
@@ -119,7 +131,7 @@ var Anzeixer = (function() {
     isXLarge: isXLarge,
     isPortrait: isPortrait,
     isLandscape: isLandscape,
-    
+
     // @deprecated desktop, tablet, phone view names -- will be removed in Anzeixer 3.0
     isDesktop: isLarge,
     isTablet: isMedium,
