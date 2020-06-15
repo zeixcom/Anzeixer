@@ -1,4 +1,4 @@
-/*! Anzeixer v2.0 | MIT License | github.com/zeixcom/Anzeixer */
+/*! Anzeixer v2.1 | MIT License | github.com/zeixcom/Anzeixer */
 
 /* All screen sizes */
 @media screen {
@@ -12,19 +12,9 @@
     background: #eee;
     padding: 0.4em;
     display: none;
-    /* display none currently doesn't work in Chrome 33
-       http://code.google.com/p/chromium/issues/detail?id=341120
-       the following is a (hopefully temporary) workaround
-    visibility: hidden;
-    bottom: -50px;
-    */
   }
   
   body.dev:after {
-    /*
-    visibility: visible;
-    bottom: 0;
-    */
     display: block;
   }
 
