@@ -115,11 +115,6 @@ var Anzeixer = (function() {
   window.addEventListener('DOMContentLoaded', triggerViewChange, false);
   window.addEventListener('resize', triggerViewChange, false);
 
-  // add the detail property to jQuery event object
-  if (typeof jQuery !== 'undefined') {
-    jQuery.event.props.push('detail');
-  }
-
   return {
     getView: getView,
     getSizeIndex: getSizeIndex,
