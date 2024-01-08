@@ -33,7 +33,7 @@ var Anzeixer = (function() {
     var oldView = view;
     view = getView();
 
-    if (oldView !== view && window.hasCustomEvents) {
+    if (oldView !== view) {
       var event = new window.CustomEvent('viewchange', {'detail': {
         'originalView': oldView,
         'currentView': view
