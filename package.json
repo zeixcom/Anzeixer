@@ -1,6 +1,6 @@
 {
   "name": "anzeixer",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "licence": "MIT",
   "homepage": "http://www.zeix.com/anzeixer/",
   "repository": "https://github.com/zeixcom/Anzeixer",
@@ -8,14 +8,5 @@
     "Esther Brunner <esther.brunner@zeix.com>",
     "Julien Silva <julien.silva@zeix.com>",
     "Samuel Tschümperlin <samuel.tschuemperlin@zeix.com>"
-  ],
-  "dependencies": {},
-  "devDependencies": {
-    "grunt": "~1.1.0",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-jshint": "~2.1.0",
-    "grunt-contrib-uglify": "~4.0.1",
-    "grunt-sass": "^3.1.0",
-    "node-sass": "^4.14.1"
-  }
+  ]
 }
