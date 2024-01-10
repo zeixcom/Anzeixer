@@ -4,34 +4,22 @@
  * @author Esther Brunner <esther.brunner@zeix.com>
  * @copyright 2013 – 2024 Zeix AG
  * @license Anzeixer.js may be freely distributed under MIT license
+ * 
+ * @param {Map<string, string> | undefined} mediaQueries
+ * @param {string[] | undefined} breakpointNames CSS custom properties --breakpoint-{name} to get; will be included with min-width media query
+ * @returns {Record<string, any>} Anzeixer object
  */
-window.Anzeixer = (() => {
-    const mq = new Map();
-    const breakpointSizes = new Set(['small', 'medium', 'large', 'xlarge']);
+const Anzeixer = (
+    mediaQueries = new Map([
+        ['portrait', '(orientation: portrait)'],
+        ['dark', '(prefers-color-scheme: dark)'],
+    ]),
+    breakpointNames = ['xsmall', 'small', 'medium', 'large', 'xlarge'],
+) => {
+    const smallestBreakpoint = breakpointNames[0];
+    const breakpointSizes = new Set(breakpointNames.slice(1));
+
     let view;
-    
-    /**
-     * Extract breakpoint values from CSS custom properties --breakpoint-[small|medium|large|xlarge]
-     * 
-     * @returns {Map<string, string>} map of breakpoint values
-     */
-    const getBreakpoints = () => {
-        const breakpoints = new Map();
-        const rootDeclarations = Array.from(document.styleSheets).map((styleSheet) => {
-            try {
-                return Array.from(styleSheet.cssRules).filter((rule) => rule.selectorText === ':root');
-            } catch (e) {
-                console.log(`Access to stylesheet ${styleSheet.href} is denied. Ignoring...`)
-            }
-        }).flat().map((rules) => rules.style);
-        for (const size of breakpointSizes) {
-            rootDeclarations.forEach((declaration) => {
-                const value = declaration.getPropertyValue(`--breakpoint-${size}`);
-                value && breakpoints.set(size, value);
-            });
-        };
-        return breakpoints;
-    }
 
     /**
      * Get the current view
@@ -39,7 +27,7 @@ window.Anzeixer = (() => {
      * @return {string} breakpoint key
      */
     const getView = () => {
-        let newView = 'xsmall';
+        let newView = smallestBreakpoint;
         for (const size of breakpointSizes) {
             if (mq.has(size) && mq.get(size).matches) newView = size;
         }
@@ -81,14 +69,15 @@ window.Anzeixer = (() => {
             triggerViewChange(e, oldView);
         }
     }
-
-    mq.set('portrait', window.matchMedia('(orientation: portrait)'));
-    mq.set('dark', window.matchMedia('(prefers-color-schme: dark)'));
-
-    const breakpoints = getBreakpoints();
+    
+    const mq = new Map();
+    for (const [key, value] of mediaQueries.entries()) {
+        mq.set(key, window.matchMedia(value));
+    }
     for (const size of breakpointSizes) {
-        if (breakpoints.has(size)) {
-            const mql = window.matchMedia(`(min-width: ${breakpoints.get(size)})`);
+        const value = getComputedStyle(document.documentElement).getPropertyValue(`--breakpoint-${size}`);
+        if (value) {
+            const mql = window.matchMedia(`(min-width: ${value})`);
             mql.addEventListener('change', updateMedia);
             mq.set(size, mql);
         }
@@ -107,26 +96,6 @@ window.Anzeixer = (() => {
     const isLarge = () => view.includes('large'); // target all large devices
     const isXLarge = () => view === 'xlarge';     // target largest devices only
   
-    /**
-     * Convenience functions for orientations
-     * 
-     * @deprecated Will be removed in future versions. Get Anzeixer.mq.get('portrait').matches instead.
-     *
-     * @return {boolean} whether the orientation matches the current view
-     */
-    const isPortrait = () => mq.get('portrait').matches;
-    const isLandscape = () => !mq.get('portrait').matches;
-
-    /**
-     * Convenience functions for preferred color schme
-     * 
-     * @deprecated Will be removed in future versions. Get Anzeixer.mq.get('dark').matches instead.
-     *
-     * @return {boolean} whether a color scheme matches is preferred
-     */
-    const isDark = () => mq.get('dark').matches;
-    const isLight = () => !mq.get('dark').matches;
-  
     return {
         mq,
         getView,
@@ -134,12 +103,10 @@ window.Anzeixer = (() => {
         isSmall,
         isMedium,
         isLarge,
-        isXLarge,
-        isPortrait,
-        isLandscape,
-        isDark,
-        isLight,
+        isXLarge
     };
   
-})();
+};
+
+// export default Anzeixer;
   
