@@ -54,6 +54,30 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+
+    
+body.dev:after {
+    display: block;
+    content: 'l'; /* assume 1024px width for browsers not supporting media queries */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    background: #eee;
+    padding: 0.4rem;
+}
+  
+/**
+ * Rotate Anzeixer label in portrait orientation
+ */
+@media (orientation: portrait) {
+    
+    body.dev:after {
+        transform: rotate(-90deg) translateY(100%);
+        transform-origin: bottom left;
+    }
+  
+}
   
 /**
  * Extra small
@@ -74,6 +98,19 @@ footer a:hover {
         background: #d7e7d8;
     }
   
+    body.dev:after {
+        content: 'xs';
+        background: #aad2ae;
+    }
+    
+}
+  
+@media screen and (max-width: 32em) and (orientation: portrait) {
+    body.dev:after { content: 'xs portrait'; }
+}
+  
+@media screen and (max-width: 32em) and (orientation: landscape) {
+    body.dev:after { content: 'xs landscape'; }
 }
   
 /**
@@ -94,6 +131,19 @@ footer a:hover {
         background: #e6eed4;
     }
   
+    body.dev:after {
+        content: 's';
+        background: #cbdd9e;
+    }
+  
+}
+  
+@media screen and (min-width: 32em) and (max-width: 45em) and (orientation: portrait) {
+    body.dev:after { content: 's portrait'; }
+}
+  
+@media screen and (min-width: 32em) and (max-width: 45em) and (orientation: landscape) {
+    body.dev:after { content: 's landscape'; }
 }
   
 /**
@@ -118,6 +168,19 @@ footer a:hover {
         background: #fdf3d7;
     }
   
+    body.dev:after {
+        content: 'm';
+        background: #ffe6a0;
+    }
+  
+}
+  
+@media screen and (min-width: 45em) and (max-width: 75em) and (orientation: portrait) {
+    body.dev:after { content: 'm portrait'; }
+}
+  
+@media screen and (min-width: 45em) and (max-width: 75em) and (orientation: landscape) {
+    body.dev:after { content: 'm landscape'; }
 }
   
 /**
@@ -142,6 +205,19 @@ footer a:hover {
         background: #fde3d1;
     }
     
+    body.dev:after {
+        content: 'l';
+        background: #ffc499;
+    }
+    
+}
+  
+@media screen and (min-width: 75em) and (max-width: 120em) and (orientation: portrait) {
+    body.dev:after { content: 'l portrait'; }
+}
+  
+@media screen and (min-width: 75em) and (max-width: 120em) and (orientation: landscape) {
+    body.dev:after { content: 'l landscape'; }
 }
   
 /**
@@ -167,4 +243,17 @@ footer a:hover {
         background: #fdd4d0;
     }
     
+    body.dev:after {
+        content: 'xl';
+        background: #ffa49d;
+    }
+    
+}
+  
+@media screen and (min-width: 120em) and (orientation: portrait) {
+    body.dev:after { content: 'xl portrait'; }
+}
+  
+@media screen and (min-width: 120em) and (orientation: landscape) {
+    body.dev:after { content: 'xl landscape'; }
 }
