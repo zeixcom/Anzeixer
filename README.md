@@ -1,3 +1,13 @@
+# Anzeixer has been Archieved
+
+If you're looking for a substitute, take a look at the Le Truc ContextMedia Web Component, which does what Anzeixer did, but in a more configurable way, integratable via [Context Community Protocol](https://github.com/webcomponents-cg/community-protocols/blob/main/proposals/context.md) with any descendant Web Components.
+
+See: https://zeixcom.github.io/le-truc/examples.html#context-media
+
+Le Truc gives you one of the fastest reactivity engines combined with Web Components that run anywhere, with just a thin layer that brings you all the guarantees of a modern, type-safe reactive system to enhance server-rendered HTML.
+
+---
+
 Anzeixer <img src="badge@2x.png" width="130" height="30">
 ========
 
